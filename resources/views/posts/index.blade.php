@@ -14,11 +14,24 @@
                 <div class='post'>
                     <h2 class='title'><a href="/posts/{{ $post->id }}">{{ $post->title }}</a></h2>
                     <p class='body'>{{ $post->body }}</p>
+                    <form action="/posts/{{ $post->id }}" id="form_{{ $post->id }}" method="post" style="display:inline">
+                     @csrf
+                     @method('DELETE')
+                    </form>
+                    <button type="submit">delete</button> 
                 </div>
             @endforeach
         </div>
         <div class='paginate'>
             {{ $posts->links() }}
         </div>
+        <script>
+            function deletePost(e){
+                'use strict';
+                if(confilm('消去すると復元できません。\n 本当に消去しますか？')){
+                    document.getElementByid('form_delete').submit();
+                }
+            }
+        </script>
     </body>
 </html>
